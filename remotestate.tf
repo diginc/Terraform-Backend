@@ -1,9 +1,11 @@
 provider "aws" {
-  region  = "${var.aws_region}"
+  region  = var.aws_region
 }
+
 resource "random_id" "tc-rmstate" {
   byte_length = 2
 }
+
 resource "aws_s3_bucket" "tfrmstate" {
   bucket        = "tc-remotestate-${random_id.tc-rmstate.dec}"
   acl           = "private"
@@ -15,12 +17,12 @@ resource "aws_s3_bucket" "tfrmstate" {
 }
 
 resource "aws_s3_bucket_object" "rmstate_folder" {
-  bucket = "${aws_s3_bucket.tfrmstate.id}"
+  bucket = aws_s3_bucket.tfrmstate.id
   key = "terraform-aws/"
 }
 
 resource "aws_dynamodb_table" "terraform_statelock" {
-  name = "${var.aws_dynamodb_table}"
+  name = var.aws_dynamodb_table
   read_capacity = 20
   write_capacity = 20
   hash_key = "LockID"
