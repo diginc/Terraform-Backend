@@ -11,11 +11,13 @@ Out of scope but worth mentioning are prequiresites make sure you have installed
 - `tf apply --auto-approve`
   - this will create your initial buckets and dynamo with a local backend
   - Take note of the bucket name for usage in the next tf init command
+- Next enabled the backend in this stack to test it out
 - `mv terraform.tfdisable terraform.tf``
 - `tf init --backend=true --backend-config="dynamodb_table=tf-remote-state-lock" --backend-config="bucket=tc-remotestate-xxxxx" --force-copy`
   - __Note:__ Bucket Name random digits (-xxxxx) will be changed to what your initinal apply created
   - `--force-copy` will migrate your local backend to your new s3 remote backend
 
+The output of the second init should have mentioned using the s3 backend and you should be able to confirm a state/lock in the s3 bucket and dynamo if you look in AWS web console.
 
 ## Resources:
 
