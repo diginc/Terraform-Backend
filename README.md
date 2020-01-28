@@ -7,6 +7,7 @@ This process also migrate the old/initial backend (local) to the new backend (s3
 Out of scope but worth mentioning are prequiresites make sure you have installed `awscli` package and entered Administrator credentials for whatever account you're bootstrapping with `aws configured`.  Then the following commands should work to bootstrap your remote s3 terraform backend.
 
 - `alias tf="docker run -it --rm -v "$HOME/.aws":/root/.aws -v $(pwd):/ws -w /ws hashicorp/terraform:light"`
+  - I use this alias instead of the `terraform` command, replace `tf` with `terraform` if you prefer to use that
 - `tf init`
 - `tf apply --auto-approve`
   - this will create your initial buckets and dynamo with a local backend
